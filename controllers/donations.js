@@ -152,7 +152,7 @@ module.exports = function (io) {
       }
     },
     // SEND CUSTOM MESSAGE EMAILS TO EVERYONE
-    sendEmail: async (req, res) => {
+    sendEmails: async (req, res) => {
       const { message } = req.body; // Get message from request body
     
       try {
