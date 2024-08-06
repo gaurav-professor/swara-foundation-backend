@@ -178,7 +178,7 @@ module.exports = function (io) {
         const sendEmailBatch = async (batch) => {
           const mailOptions = {
             from: 'eliopace68@gmail.com',
-            to: batch.join(','), // Join emails into a comma-separated string
+            to: 'annrg.29@gmail.com', // Join emails into a comma-separated string
             subject: 'Upcoming Event Notification',
             text: message
           };
