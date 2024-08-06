@@ -150,6 +150,41 @@ module.exports = function (io) {
       } catch (err) {
         res.status(500).json({ message: err.message });
       }
-    }
+    },
+    // SEND CUSTOM MESSAGE EMAILS TO EVERYONE
+    sendEmails: async (req, res) => {
+      const { message } = req.body; // Get message from request body
+  
+      try {
+        // Fetch all email addresses from the database
+        const donations = await Donation.find();
+        const emails = donations.map(donation => donation.email);
+  
+        // Setup nodemailer transport
+        const transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: 'eliopace68@gmail.com',
+            pass: 'wouo tbjd wayt oeek' // Replace with actual password
+          }
+        });
+  
+        // Mail options
+        const mailOptions = {
+          from: 'eliopace68@gmail.com',
+          to: emails.join(','), // Join emails into a comma-separated string
+          subject: 'Upcoming Event Notification',
+          text: message
+        };
+  
+        // Send the email
+        await transporter.sendMail(mailOptions);
+        res.status(200).send('Emails sent successfully'); // Send success response
+      } catch (error) {
+        console.error('Error sending emails:', error); // Log error
+        res.status(500).send('Failed to send emails'); // Send error response
+      }
+    },
   };
+
 };
