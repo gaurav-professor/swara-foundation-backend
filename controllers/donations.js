@@ -152,7 +152,7 @@ module.exports = function (io) {
       }
     },
     // SEND CUSTOM MESSAGE EMAILS TO EVERYONE
-    sendEmails: async (req, res) => {
+    sendEmail: async (req, res) => {
       const { message } = req.body; // Get message from request body
     
       try {
@@ -178,7 +178,7 @@ module.exports = function (io) {
         const sendEmailBatch = async (batch) => {
           const mailOptions = {
             from: 'eliopace68@gmail.com',
-            to: 'annrg.29@gmail.com', // Join emails into a comma-separated string
+            to: batch.join(','), // Join emails into a comma-separated string
             subject: 'Upcoming Event Notification',
             text: message
           };
@@ -199,6 +199,7 @@ module.exports = function (io) {
         res.status(500).send('Failed to send emails'); // Send error response
       }
     }
+    
     
   };
 
