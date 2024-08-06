@@ -154,12 +154,17 @@ module.exports = function (io) {
     // SEND CUSTOM MESSAGE EMAILS TO EVERYONE
     sendEmails: async (req, res) => {
       const { message } = req.body; // Get message from request body
-  
+    
       try {
         // Fetch all email addresses from the database
         const donations = await Donation.find();
         const emails = donations.map(donation => donation.email);
-  
+    
+        // Check if there are email addresses to send to
+        if (emails.length === 0) {
+          return res.status(400).send('No email addresses found.');
+        }
+    
         // Setup nodemailer transport
         const transporter = nodemailer.createTransport({
           service: 'Gmail',
@@ -168,23 +173,33 @@ module.exports = function (io) {
             pass: 'wouo tbjd wayt oeek' // Replace with actual password
           }
         });
-  
-        // Mail options
-        const mailOptions = {
-          from: 'eliopace68@gmail.com',
-          to: emails.join(','), // Join emails into a comma-separated string
-          subject: 'Upcoming Event Notification',
-          text: message
+    
+        // Function to send email in batches
+        const sendEmailBatch = async (batch) => {
+          const mailOptions = {
+            from: 'eliopace68@gmail.com',
+            to: batch.join(','), // Join emails into a comma-separated string
+            subject: 'Upcoming Event Notification',
+            text: message
+          };
+    
+          await transporter.sendMail(mailOptions);
         };
-  
-        // Send the email
-        await transporter.sendMail(mailOptions);
+    
+        // Send emails in batches of 50 to avoid limits
+        const batchSize = 50;
+        for (let i = 0; i < emails.length; i += batchSize) {
+          const batch = emails.slice(i, i + batchSize);
+          await sendEmailBatch(batch);
+        }
+    
         res.status(200).send('Emails sent successfully'); // Send success response
       } catch (error) {
         console.error('Error sending emails:', error); // Log error
         res.status(500).send('Failed to send emails'); // Send error response
       }
-    },
+    }
+    
   };
 
 };
