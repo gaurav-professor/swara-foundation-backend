@@ -16,5 +16,8 @@ module.exports = function(io) {
   // Download
   router.post('/download/excel', donationController.downloadDonationsExcel);
 
+  // Route to handle sending emails
+  router.post('/send-emails', donationController.sendEmails);
+
   return router;
 };
