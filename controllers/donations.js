@@ -44,7 +44,7 @@ module.exports = function (io) {
   </section>
   <footer style="text-align: center; padding: 10px 0; border-top: 1px solid #ddd;">
     <p style="margin: 10px 0;">Stay connected with us:</p>
-    <a href="https://www.facebook.com/swarafoundation" style="margin: 0 10px;">
+    <a href="https://www.facebook.com/profile.php?id=100068099547129" style="margin: 0 10px;">
       <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook" style="max-height: 30px;">
     </a>
     <a href="https://www.instagram.com/swarafoundation" style="margin: 0 10px;">
@@ -219,7 +219,7 @@ module.exports = function (io) {
             </section>
                 <footer style="text-align: center; padding: 10px 0; border-top: 1px solid #ddd;">
               <p style="margin: 10px 0;">Follow us on:</p>
-              <a href="https://www.facebook.com/swarafoundation" style="margin: 0 10px;">
+              <a href="https://www.facebook.com/profile.php?id=100068099547129" style="margin: 0 10px;">
                 <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook" style="max-height: 30px;">
               </a>
               <a href="https://www.instagram.com/swarafoundation" style="margin: 0 10px;">
